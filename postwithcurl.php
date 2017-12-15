@@ -20,7 +20,7 @@
     $vads_expiry_year = "2018"; //year expiration
     $vads_payment_cards = vads_payment_cards("1"); //function return card type
     $vads_trans_date = vads_trans_date(); //function return date
-    $vads_trans_id = "000016"; //function return number of transaction
+    $vads_trans_id = "000099"; //function return number of transaction
     /* -------- */
 
 
@@ -71,7 +71,17 @@ $data = array(  "vads_action_mode" => "$vads_action_mode", //SILENT mode
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $server_output = curl_exec ($ch);
     curl_close ($ch);
-    print_r($server_output);
+
+            //var_dump($_POST);
+
+    if ($server_output == "") {
+        echo 'formulaire envoyé';
+    } else {
+        echo 'erreur formulaire';
+    }
+
+    // curl_close ($ch);
+    // var_dump($server_output);
 
 
 /* -- Logic function -- */

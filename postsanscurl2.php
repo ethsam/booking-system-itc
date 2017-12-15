@@ -1,5 +1,4 @@
 <?php
-
     /* CONFIGURATION */
     $vads_action_mode = "SILENT"; //Silent mode = no return
     $vads_capture_delay = "0"; //delay bank capture
@@ -20,7 +19,7 @@
     $vads_expiry_year = "2018"; //year expiration
     $vads_payment_cards = vads_payment_cards("1"); //function return card type
     $vads_trans_date = vads_trans_date(); //function return date
-    $vads_trans_id = "000016"; //function return number of transaction
+    $vads_trans_id = "000021"; //function return number of transaction
     /* -------- */
 
 
@@ -77,7 +76,9 @@ $content = file_get_contents(
         )
     )
 );
-var_dump($content);
+// var_dump($content);
+//echo $content;
+//print_r($content);
 
 /* -- Logic function -- */
 
