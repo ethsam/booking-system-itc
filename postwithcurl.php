@@ -20,7 +20,7 @@
     $vads_expiry_year = "2018"; //year expiration
     $vads_payment_cards = vads_payment_cards("1"); //function return card type
     $vads_trans_date = vads_trans_date(); //function return date
-    $vads_trans_id = "000025"; //function return number of transaction
+    $vads_trans_id = "000031"; //function return number of transaction
     /* END INFOS CB */
 
 

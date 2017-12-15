@@ -1,11 +1,61 @@
 <?php
 
     // $test = "----- Résultat brute -----<br />".implode($_POST,'<br />')."<br>----- End Résultat brute -----<br />";
-    explode($_POST);
-    $test = '<div style="display:none;">
+    
+    /* FOR DEBUG MODE (display:none; on mail body) */
+    $vads_amount = !empty($_POST['vads_amount']) ? $_POST['vads_amount'] : 'Empty';
+    $vads_auth_number = !empty($_POST['vads_auth_number']) ? $_POST['vads_auth_number'] : 'Empty';
+    $vads_auth_result = !empty($_POST['vads_auth_result']) ? $_POST['vads_auth_result'] : 'Empty';
+    $vads_capture_delay = !empty($_POST['vads_capture_delay']) ? $_POST['vads_capture_delay'] : 'Empty';
+    $vads_card_brand = !empty($_POST['vads_card_brand']) ? $_POST['vads_card_brand'] : 'Empty';
+    $vads_card_number = !empty($_POST['vads_card_number']) ? $_POST['vads_card_number'] : 'Empty';
+    $vads_payment_certificate = !empty($_POST['vads_payment_certificate']) ? $_POST['vads_payment_certificate'] : 'Empty';
+    $vads_ctx_mode = !empty($_POST['vads_ctx_mode']) ? $_POST['vads_ctx_mode'] : 'Empty';
+    $vads_currency = !empty($_POST['vads_currency']) ? $_POST['vads_currency'] : 'Empty';
+    $vads_effective_amount = !empty($_POST['vads_effective_amount']) ? $_POST['vads_effective_amount'] : 'Empty';
+    $vads_site_id = !empty($_POST['vads_site_id']) ? $_POST['vads_site_id'] : 'Empty';
+    $vads_trans_date = !empty($_POST['vads_trans_date']) ? $_POST['vads_trans_date'] : 'Empty';
+    $vads_trans_id = !empty($_POST['vads_trans_id']) ? $_POST['vads_trans_id'] : 'Empty';
+    $vads_validation_mode = !empty($_POST['vads_validation_mode']) ? $_POST['vads_validation_mode'] : 'Empty';
+    $vads_version = !empty($_POST['vads_version']) ? $_POST['vads_version'] : 'Empty';
+    $vads_warranty_result = !empty($_POST['vads_warranty_result']) ? $_POST['vads_warranty_result'] : 'Empty';
+    $vads_payment_src = !empty($_POST['vads_payment_src']) ? $_POST['vads_payment_src'] : 'Empty';
+    $vads_sequence_number = !empty($_POST['vads_sequence_number']) ? $_POST['vads_sequence_number'] : 'Empty';
+    $vads_contract_used = !empty($_POST['vads_contract_used']) ? $_POST['vads_contract_used'] : 'Empty';
+    $vads_trans_status = !empty($_POST['vads_trans_status']) ? $_POST['vads_trans_status'] : 'Empty';
+    $vads_expiry_month = !empty($_POST['vads_expiry_month']) ? $_POST['vads_expiry_month'] : 'Empty';
+    $vads_expiry_year = !empty($_POST['vads_expiry_year']) ? $_POST['vads_expiry_year'] : 'Empty';
+    $vads_bank_code = !empty($_POST['vads_bank_code']) ? $_POST['vads_bank_code'] : 'Empty';
+    $vads_bank_product = !empty($_POST['vads_bank_product']) ? $_POST['vads_bank_product'] : 'Empty';
+    $vads_pays_ip = !empty($_POST['vads_pays_ip']) ? $_POST['vads_pays_ip'] : 'Empty';
+    $vads_presentation_date = !empty($_POST['vads_presentation_date']) ? $_POST['vads_presentation_date'] : 'Empty';
+    $vads_effective_creation_date = !empty($_POST['vads_effective_creation_date']) ? $_POST['vads_effective_creation_date'] : 'Empty';
+    $vads_operation_type = !empty($_POST['vads_operation_type']) ? $_POST['vads_operation_type'] : 'Empty';
+    $vads_threeds_enrolled = !empty($_POST['vads_threeds_enrolled']) ? $_POST['vads_threeds_enrolled'] : 'Empty';
+    $vads_threeds_cavv = !empty($_POST['vads_threeds_cavv']) ? $_POST['vads_threeds_cavv'] : 'Empty';
+    $vads_threeds_eci = !empty($_POST['vads_threeds_eci']) ? $_POST['vads_threeds_eci'] : 'Empty';
+    $vads_threeds_xid = !empty($_POST['vads_threeds_xid']) ? $_POST['vads_threeds_xid'] : 'Empty';
+    $vads_threeds_cavvAlgorithm = !empty($_POST['vads_threeds_cavvAlgorithm']) ? $_POST['vads_threeds_cavvAlgorithm'] : 'Empty';
+    $vads_threeds_status = !empty($_POST['vads_threeds_status']) ? $_POST['vads_threeds_status'] : 'Empty';
+    $vads_threeds_sign_valid = !empty($_POST['vads_threeds_sign_valid']) ? $_POST['vads_threeds_sign_valid'] : 'Empty';
+    $vads_threeds_error_code = !empty($_POST['vads_threeds_error_code']) ? $_POST['vads_threeds_error_code'] : 'Empty';
+    $vads_threeds_exit_status = !empty($_POST['vads_threeds_exit_status']) ? $_POST['vads_threeds_exit_status'] : 'Empty';
+    $vads_risk_control = !empty($_POST['vads_risk_control']) ? $_POST['vads_risk_control'] : 'Empty';
+    $vads_result = !empty($_POST['vads_result']) ? $_POST['vads_result'] : 'Empty';
+    $vads_extra_result = !empty($_POST['vads_extra_result']) ? $_POST['vads_extra_result'] : 'Empty';
+    $vads_card_country = !empty($_POST['vads_card_country']) ? $_POST['vads_card_country'] : 'Empty';
+    $vads_language = !empty($_POST['vads_language']) ? $_POST['vads_language'] : 'Empty';
+    $vads_hash = !empty($_POST['vads_hash']) ? $_POST['vads_hash'] : 'Empty';
+    $vads_url_check_src = !empty($_POST['vads_url_check_src']) ? $_POST['vads_url_check_src'] : 'Empty';
+    $vads_action_mode = !empty($_POST['vads_action_mode']) ? $_POST['vads_action_mode'] : 'Empty';
+    $vads_payment_config = !empty($_POST['vads_payment_config']) ? $_POST['vads_payment_config'] : 'Empty';
+    $vads_page_action = !empty($_POST['vads_page_action']) ? $_POST['vads_page_action'] : 'Empty';
+    $signature = !empty($_POST['signature']) ? $_POST['signature'] : 'Empty';
+
+        $test = '<div style="display:none;">
             <h3>---INFOS DEBUG---</h3>
-            <p>$vads_amount = '.$vads_amount.'</p>
-            <p>$vads_auth_mode = '.$vads_auth_mode.'</p>
+            <p>$vads_amount = '.$_POST['vads_amount'].'</p>
+            <p>$vads_auth_mode = '.$_POST['vads_auth_mode'].'</p>
             <p>$vads_auth_number = '.$vads_auth_number.'</p>
             <p>$vads_auth_result = '.$vads_auth_result.'</p>
             <p>$vads_capture_delay = '.$vads_capture_delay.'</p>
