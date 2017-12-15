@@ -10,7 +10,7 @@
     $vads_site_id = "17517945"; //the shop ID
     $vads_version = "V2"; //protocol version
     $key = "6327683775105250"; //Certificat key
-    /* ------------- */
+    /* END CONFIG */
 
     /* INFOS CB */
     $vads_amount = vadsAmount("300"); //convertion float to int float (cents euros)
@@ -20,8 +20,8 @@
     $vads_expiry_year = "2018"; //year expiration
     $vads_payment_cards = vads_payment_cards("1"); //function return card type
     $vads_trans_date = vads_trans_date(); //function return date
-    $vads_trans_id = "000012"; //function return number of transaction
-    /* -------- */
+    $vads_trans_id = "000025"; //function return number of transaction
+    /* END INFOS CB */
 
 
 $dataBrute = array(  "vads_action_mode" => $vads_action_mode,
@@ -72,8 +72,6 @@ $data = array(  "vads_action_mode" => "$vads_action_mode", //SILENT mode
     $server_output = curl_exec ($ch);
     curl_close ($ch);
 
-            //var_dump($_POST);
-
     if ($server_output == "") {
         echo 'formulaire envoyé';
     } else {
@@ -84,13 +82,13 @@ $data = array(  "vads_action_mode" => "$vads_action_mode", //SILENT mode
     // var_dump($server_output);
 
 
-/* -- Logic function -- */
+ /* -- Logic function -- */
 
-//Function convert float to int euros cents
-function vadsAmount($data) {  
-    $total = $data * 100;
-    return $total;
-}
+    //Function convert float to int euros cents
+    function vadsAmount($data) {  
+        $total = $data * 100;
+        return $total;
+    }
 
     //Function for return card type
     function vads_payment_cards($data) {
@@ -109,11 +107,11 @@ function vadsAmount($data) {
 
     }
 
-//Function return formatted 'YYYYMMDDHHMMSS' date
-function vads_trans_date() {
-    $date = date('YmdHis');
-    return $date; 
-}
+    //Function return formatted 'YYYYMMDDHHMMSS' date
+    function vads_trans_date() {
+        $date = date('YmdHis');
+        return $date; 
+    }
 
     // Function signature calculate
     function getSignature($params, $key){
@@ -134,6 +132,6 @@ function vads_trans_date() {
         return $signature ;
     }
 
-/* -- /Logic function -- */
+ /* -- /Logic function -- */
 
 ?>
