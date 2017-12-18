@@ -1,20 +1,26 @@
 <?php
 
     /* CONFIGURATION */
+
+    //$key = "0000000000000000"; //Certificat key PRODUCTION
+    //$vads_ctx_mode = "PRODUCTION"; // PRODUCTION mode
+    $key = "6327683775105250"; //Certificat key TEST
+    $vads_ctx_mode = "TEST"; // TEST or PRODUCTION mode choice
+
+    /* CONSTANT CONFIGURATION */
     $vads_action_mode = "SILENT"; //Silent mode = no return
     $vads_capture_delay = "0"; //delay bank capture
-    $vads_ctx_mode = "TEST"; // TEST or PRODUCTION mode choice
     $vads_currency = "978"; // 978 = euros '€'
     $vads_page_action = "PAYMENT"; // action is payment
     $vads_payment_config = "SINGLE"; // single payment
     $vads_site_id = "17517945"; //the shop ID
     $vads_version = "V2"; //protocol version
-    $key = "6327683775105250"; //Certificat key
+    
     /* END CONFIG */
 
 
         /*  -----------------
-            START $_POST traitement
+            START WP hook traitement
             ----------------- */
         // $vads_amount = $booking->priceTotal();
         // $vads_card_number = $booking->cardNumber;
@@ -28,8 +34,17 @@
         // $vads_cust_phone = $booking->getUserPhone();
         // $vads_trans_id = $pdf->booking->number;
         /*  -----------------
-            END $_POST traitement
+            END WP hook traitement
             ----------------- */
+
+    /*
+        FAKE CB TEST for testing process
+
+        CB number : 5970100300000034
+        exp : 06/2018
+        cvv : 123
+        Mastercard
+    */
 
 
     /* INFOS CB */
@@ -46,10 +61,11 @@
     $vads_cust_first_name = "Samuel"; //customer firstname
     $vads_cust_last_name = "Etheve"; //customer lastname
     $vads_cust_phone = "0262331111"; //customer phonenumber
-    $vads_trans_id = "000016"; //booking number
+    $vads_trans_id = "000017"; //booking number
     $vads_order_id = $vads_trans_id; //booking number custom (i choice the same number)
     /* END BOOKING */
 
+    //Array for signature generate with getSignature()
 $dataBrute = array(  "vads_action_mode" => $vads_action_mode,
                 "vads_amount" => $vads_amount,
                 "vads_capture_delay" => $vads_capture_delay,
@@ -107,8 +123,11 @@ $data = array(  "vads_action_mode" => "$vads_action_mode", //SILENT mode
     curl_close ($ch);
 
     if ($server_output == "") {
+
         echo 'formulaire envoyé';
+        
     } else {
+
         $message = 'Erreur causé par un duplicate ID sur vads_trans_id ou erreur serveur banque <br /> Client : '.$vads_cust_first_name.' '.$vads_cust_last_name.'<br />Téléphone : '.$vads_cust_phone;
         $sujet = 'Erreur formulaire paiement '.$vads_trans_id;
         $destinataire = 'samuel.etheve@regie.re';
@@ -120,11 +139,8 @@ $data = array(  "vads_action_mode" => "$vads_action_mode", //SILENT mode
             } else {
                 echo "Une erreur impossible de continuer verifier votre serveur mail php.";
                 print_r(error_get_last());
-        }
+            }
     }
-
-    // curl_close ($ch);
-    // var_dump($server_output);
 
 
  /* -- Logic function -- */
