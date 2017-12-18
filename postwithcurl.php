@@ -20,9 +20,14 @@
     $vads_expiry_year = "2018"; //year expiration
     $vads_payment_cards = vads_payment_cards("1"); //function return card type
     $vads_trans_date = vads_trans_date(); //function return date
-    $vads_trans_id = "000031"; //function return number of transaction
     /* END INFOS CB */
 
+    /* INFOS BOOKING */
+    $vads_cust_first_name = "Samuel"; //customer firstname
+    $vads_cust_last_name = "Etheve"; //customer lastname
+    $vads_cust_phone = "0262331111"; //customer phonenumber
+    $vads_trans_id = "000003"; //booking number
+    /* END BOOKING */
 
 $dataBrute = array(  "vads_action_mode" => $vads_action_mode,
                 "vads_amount" => $vads_amount,
@@ -39,7 +44,10 @@ $dataBrute = array(  "vads_action_mode" => $vads_action_mode,
                 "vads_site_id" => $vads_site_id,
                 "vads_trans_date" => $vads_trans_date,
                 "vads_trans_id" => $vads_trans_id,
-                "vads_version" => $vads_version
+                "vads_version" => $vads_version,
+                "vads_cust_first_name" => $vads_cust_first_name,
+                "vads_cust_last_name" => $vads_cust_last_name,
+                "vads_cust_phone" => $vads_cust_phone
             );
 
 
@@ -59,6 +67,9 @@ $data = array(  "vads_action_mode" => "$vads_action_mode", //SILENT mode
                 "vads_trans_date" => "$vads_trans_date", //Transaction date
                 "vads_trans_id" => "$vads_trans_id", //booking recept number
                 "vads_version" => "$vads_version", //protocol version
+                "vads_cust_first_name" => "$vads_cust_first_name", //customer firstname
+                "vads_cust_last_name" => "$vads_cust_last_name", //customer lastname
+                "vads_cust_phone" => "$vads_cust_phone", //customer phone number
                 "signature" => getSignature($dataBrute, $key) //Function return signature
             );
 

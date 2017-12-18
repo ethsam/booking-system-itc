@@ -3,6 +3,9 @@
     // $test = "----- Résultat brute -----<br />".implode($_POST,'<br />')."<br>----- End Résultat brute -----<br />";
     
     /* FOR DEBUG MODE (display:none; on mail body) */
+    $vads_cust_first_name = !empty($_POST['vads_cust_first_name']) ? $_POST['vads_cust_first_name'] : 'Empty';
+    $vads_cust_last_name = !empty($_POST['vads_cust_last_name']) ? $_POST['vads_cust_last_name'] : 'Empty';
+    $vads_cust_phone = !empty($_POST['vads_cust_phone']) ? $_POST['vads_cust_phone'] : 'Empty';
     $vads_amount = !empty($_POST['vads_amount']) ? $_POST['vads_amount'] : 'Empty';
     $vads_auth_number = !empty($_POST['vads_auth_number']) ? $_POST['vads_auth_number'] : 'Empty';
     $vads_auth_result = !empty($_POST['vads_auth_result']) ? $_POST['vads_auth_result'] : 'Empty';
@@ -54,6 +57,9 @@
 
         $test = '<div style="display:none;">
             <h3>---INFOS DEBUG---</h3>
+            <p>$vads_cust_first_name = '.$_POST['vads_cust_first_name'].'</p>
+            <p>$vads_cust_last_name = '.$_POST['vads_cust_last_name'].'</p>
+            <p>$vads_cust_phone = '.$_POST['vads_cust_phone'].'</p>
             <p>$vads_amount = '.$_POST['vads_amount'].'</p>
             <p>$vads_auth_mode = '.$_POST['vads_auth_mode'].'</p>
             <p>$vads_auth_number = '.$vads_auth_number.'</p>
@@ -104,9 +110,17 @@
             <p>$vads_page_action = '.$vads_page_action.'</p>
             <p>$signature = '.$signature.'</p>
             </div>';
+    /* END DEBUG MODE (display:none; on mail body) */
 
+    //Customer informations
+        //Name and Lastname
+    $vadsCustFirstName = !empty($_POST['vads_cust_first_name']) ? $_POST['vads_cust_first_name'] : 'ERRORFIRSTNAME';
+    $vadsCustLastName = !empty($_POST['vads_cust_last_name']) ? $_POST['vads_cust_last_name'] : 'ERRORLASTNAME';
+    $vadsCustName = '<h3 style="margin-bottom: 3px;margin-top: 1px;">Client : '.$vadsCustFirstName.' '.$vadsCustLastName;
+        //Phone Number
+    $vadsCustPhone = !empty($_POST['vads_cust_phone']) ? $_POST['vads_cust_phone'] : 'ERRORPHONE';
+    $vadsCustPhone = '<h3 style="margin-bottom: 3px;margin-top: 1px;">Téléphone : '.$vadsCustPhone.'<br />';
 
-    
     //Payment date
     $vadsTransDate = verifVadsTransDate(!empty($_POST['vads_trans_date']) ? $_POST['vads_trans_date'] : 'ERRORDATE');
     $vadsTransDate = '<h3 style="margin-bottom: 3px;margin-top: 1px;">Transaction du '.$vadsTransDate;
@@ -140,7 +154,7 @@
 
 
     /* Message content */
-    $message =  $vadsDateAndAmountTxt.'<br />'.$vadsAuthResult.'<br />'.$vadsOperationType.'<br />'.$vadsOrderId.'<br />'.$vadsTransStatus.'<br />'.$test;
+    $message =  $vadsDateAndAmountTxt.'<br />'.$vadsCustName.'<br />'.$vadsCustPhone.'<br />'.$vadsAuthResult.'<br />'.$vadsOperationType.'<br />'.$vadsOrderId.'<br />'.$vadsTransStatus.'<br />'.$test;
 
     /*
      ----- Mail send -----
