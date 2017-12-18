@@ -16,17 +16,17 @@
         /*  -----------------
             START $_POST traitement
             ----------------- */
-        // $vads_amount = !empty( $booking->/* total cost */ ) ? $booking->/* total cost*/ : '0';
-        // $vads_card_number = !empty( $booking->cardNumber ) ? $booking->cardNumber : '0';
-        // $vads_cvv = !empty( $booking->cardCryptogram ) ? $search->cardCryptogram : '0';
-        // $vads_expiry_month = !empty( extractExpireMonth( $booking->cardExpiration ) ) ? $booking->cardExpiration : '0';
-        // $vads_expiry_year = !empty( extractExpireYear( $booking->cardExpiration ) ) ? $booking->cardExpiration : '0';
-        // $vads_payment_cards = !empty( vads_payment_cards( $booking->cardType ) ) ? $booking->cardType : '0';
-        // $vads_trans_date = vads_trans_date( !empty( vads_payment_cards( $booking->cardType ) ) ? $booking->cardType : '0' );
-        // $vads_cust_first_name = '';
-        // $vads_cust_last_name = '';
-        // $vads_cust_phone = '';
-        // $vads_trans_id = '';
+        // $vads_amount = $booking->priceTotal();
+        // $vads_card_number = $booking->cardNumber;
+        // $vads_cvv = $booking->cardCryptogram;
+        // $vads_expiry_month = extractExpireMonth( $booking->cardExpiration );
+        // $vads_expiry_year = extractExpireYear( $booking->cardExpiration );
+        // $vads_payment_cards = vads_payment_cards( $booking->cardType );
+        // $vads_trans_date = vads_trans_date();
+        // $vads_cust_first_name = extractFirstName( $booking->getUserFullName() );
+        // $vads_cust_last_name = extractLastName( $booking->getUserFullName() );
+        // $vads_cust_phone = $booking->getUserPhone();
+        // $vads_trans_id = $pdf->booking->number;
         /*  -----------------
             END $_POST traitement
             ----------------- */
