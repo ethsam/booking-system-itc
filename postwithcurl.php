@@ -46,7 +46,8 @@
     $vads_cust_first_name = "Samuel"; //customer firstname
     $vads_cust_last_name = "Etheve"; //customer lastname
     $vads_cust_phone = "0262331111"; //customer phonenumber
-    $vads_trans_id = "000012"; //booking number
+    $vads_trans_id = "000016"; //booking number
+    $vads_order_id = $vads_trans_id; //booking number custom (i choice the same number)
     /* END BOOKING */
 
 $dataBrute = array(  "vads_action_mode" => $vads_action_mode,
@@ -67,6 +68,7 @@ $dataBrute = array(  "vads_action_mode" => $vads_action_mode,
                 "vads_version" => $vads_version,
                 "vads_cust_first_name" => $vads_cust_first_name,
                 "vads_cust_last_name" => $vads_cust_last_name,
+                "vads_order_id" => $vads_order_id,
                 "vads_cust_phone" => $vads_cust_phone
             );
 
@@ -90,6 +92,7 @@ $data = array(  "vads_action_mode" => "$vads_action_mode", //SILENT mode
                 "vads_cust_first_name" => "$vads_cust_first_name", //customer firstname
                 "vads_cust_last_name" => "$vads_cust_last_name", //customer lastname
                 "vads_cust_phone" => "$vads_cust_phone", //customer phone number
+                "vads_order_id" => "$vads_order_id",
                 "signature" => getSignature($dataBrute, $key) //Function return signature
             );
 

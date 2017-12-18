@@ -143,7 +143,7 @@
 
     //ID or Number of Transaction
     $vadsOrderId = !empty($_POST['vads_order_id']) ? $_POST['vads_order_id'] : '<p style="margin-top:1px;">Erreur vads_order_id</p>';
-    $vadsOrderId = '<h3 style="margin-bottom: 3px;margin-top: 1px;">Identifiant de la commande</h3>'.$vadsOrderId;
+    $vadsOrderId = '<h3 style="margin-bottom: 3px;margin-top: 1px;">Identifiant de la réservation</h3><p style="margin-top:1px">'.$vadsOrderId.'</p>';
 
     //status of payment
     $vadsTransStatus = verifVadsStatus(!empty($_POST['vads_trans_status']) ? $_POST['vads_trans_status'] : 'ERRORSTATUS');
