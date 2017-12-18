@@ -12,6 +12,26 @@
     $key = "6327683775105250"; //Certificat key
     /* END CONFIG */
 
+
+        /*  -----------------
+            START $_POST traitement
+            ----------------- */
+        // $vads_amount = !empty( $booking->/* total cost */ ) ? $booking->/* total cost*/ : '0';
+        // $vads_card_number = !empty( $booking->cardNumber ) ? $booking->cardNumber : '0';
+        // $vads_cvv = !empty( $booking->cardCryptogram ) ? $search->cardCryptogram : '0';
+        // $vads_expiry_month = !empty( extractExpireMonth( $booking->cardExpiration ) ) ? $booking->cardExpiration : '0';
+        // $vads_expiry_year = !empty( extractExpireYear( $booking->cardExpiration ) ) ? $booking->cardExpiration : '0';
+        // $vads_payment_cards = !empty( vads_payment_cards( $booking->cardType ) ) ? $booking->cardType : '0';
+        // $vads_trans_date = vads_trans_date( !empty( vads_payment_cards( $booking->cardType ) ) ? $booking->cardType : '0' );
+        // $vads_cust_first_name = '';
+        // $vads_cust_last_name = '';
+        // $vads_cust_phone = '';
+        // $vads_trans_id = '';
+        /*  -----------------
+            END $_POST traitement
+            ----------------- */
+
+
     /* INFOS CB */
     $vads_amount = vadsAmount("300"); //convertion float to int float (cents euros)
     $vads_card_number = "5970100300000034"; // card numbers

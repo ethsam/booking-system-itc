@@ -183,9 +183,9 @@
     */
 
 
-     /* 
-     ----- Logic function -----
-     */
+                        /* ---------------------
+                             Logic function 
+                           --------------------- */
 
      //Function for verification status of payment - String $data
      function verifVadsStatus($data) {
