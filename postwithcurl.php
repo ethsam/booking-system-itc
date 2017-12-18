@@ -26,7 +26,7 @@
     $vads_cust_first_name = "Samuel"; //customer firstname
     $vads_cust_last_name = "Etheve"; //customer lastname
     $vads_cust_phone = "0262331111"; //customer phonenumber
-    $vads_trans_id = "000003"; //booking number
+    $vads_trans_id = "000012"; //booking number
     /* END BOOKING */
 
 $dataBrute = array(  "vads_action_mode" => $vads_action_mode,
@@ -86,7 +86,18 @@ $data = array(  "vads_action_mode" => "$vads_action_mode", //SILENT mode
     if ($server_output == "") {
         echo 'formulaire envoyé';
     } else {
-        echo 'erreur formulaire';
+        $message = 'Erreur causé par un duplicate ID sur vads_trans_id ou erreur serveur banque <br /> Client : '.$vads_cust_first_name.' '.$vads_cust_last_name.'<br />Téléphone : '.$vads_cust_phone;
+        $sujet = 'Erreur formulaire paiement '.$vads_trans_id;
+        $destinataire = 'samuel.etheve@regie.re';
+        $headers = "From: \"testpaiement\"<testpaiement@itctropicar.re>\n";
+        $headers .= "Reply-To: testpaiement@itctropicar.re\n";
+        $headers .= "Content-Type: text/html; charset=\"iso-8859-1\"";
+        if ( mail($destinataire,$sujet,$message,$headers) ) {
+                echo 'Une erreur c\'est produite les infos sont envoyé à '.$destinataire;
+            } else {
+                echo "Une erreur impossible de continuer verifier votre serveur mail php.";
+                print_r(error_get_last());
+        }
     }
 
     // curl_close ($ch);

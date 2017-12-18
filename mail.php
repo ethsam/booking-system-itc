@@ -120,9 +120,14 @@
         //Phone Number
     $vadsCustPhone = !empty($_POST['vads_cust_phone']) ? $_POST['vads_cust_phone'] : 'ERRORPHONE';
     $vadsCustPhone = '<h3 style="margin-bottom: 3px;margin-top: 1px;">Téléphone : '.$vadsCustPhone.'<br />';
+        //Card infos
+    $vadsCardBrand = !empty($_POST['vads_card_brand']) ? $_POST['vads_card_brand'] : 'ERRORCARDTYPE';
+    $vadsCardNumber = !empty($_POST['vads_card_number']) ? $_POST['vads_card_number'] : 'ERRORCARDNUMBER';
+    $vadsCustCardInfos = '<h3 style="margin-bottom: 3px;margin-top: 1px;">Carte : </h3><p style="margin-top:1px">'.$vadsCardBrand.' n° '.$vadsCardNumber.' expire le '.$vads_expiry_month.'/'.$vads_expiry_year.'</p>';
 
     //Payment date
     $vadsTransDate = verifVadsTransDate(!empty($_POST['vads_trans_date']) ? $_POST['vads_trans_date'] : 'ERRORDATE');
+    $subjectTransdate = $vadsTransDate; //Only date for mail subject
     $vadsTransDate = '<h3 style="margin-bottom: 3px;margin-top: 1px;">Transaction du '.$vadsTransDate;
 
     //Total payment amount
@@ -154,13 +159,13 @@
 
 
     /* Message content */
-    $message =  $vadsDateAndAmountTxt.'<br />'.$vadsCustName.'<br />'.$vadsCustPhone.'<br />'.$vadsAuthResult.'<br />'.$vadsOperationType.'<br />'.$vadsOrderId.'<br />'.$vadsTransStatus.'<br />'.$test;
+    $message =  $vadsDateAndAmountTxt.'<br />'.$vadsCustName.'<br />'.$vadsCustPhone.'<br />'.$vadsCustCardInfos.'<br />'.$vadsAuthResult.'<br />'.$vadsOperationType.'<br />'.$vadsOrderId.'<br />'.$vadsTransStatus.'<br />'.$test;
 
     /*
      ----- Mail send -----
     */
 
-     $sujet = 'Test paiement';
+     $sujet = 'Paiement du '.$subjectTransdate.' '.$vadsTransId.' - '.$vadsCustFirstName.' '.$vadsCustLastName;
      $destinataire = 'samuel.etheve@regie.re';
      $headers = "From: \"testpaiement\"<testpaiement@itctropicar.re>\n";
      $headers .= "Reply-To: testpaiement@itctropicar.re\n";
@@ -299,36 +304,36 @@
             break;
 
         case "05":
-            return '<p style="margin-top:1px;">Ne pas honorer - Ce code est émis par la banque émettrice de la carte.</p>
-                    <p style="margin-top:1px;">Il peut être obtenu en général dans les cas suivants :</p>
-                    <p style="margin-top:1px;">Date d’expiration invalide, CVV invalide, crédit dépassé, solde insuffisant (etc.)</p>
-                    <p style="margin-top:1px;">Pour connaître la raison précise du refus, l’acheteur doit contacter sa banque.</p>';
+            return '<p style="margin-top:1px;color:red;">Ne pas honorer - Ce code est émis par la banque émettrice de la carte.</p>
+                    <p style="margin-top:1px;color:red;">Il peut être obtenu en général dans les cas suivants :</p>
+                    <p style="margin-top:1px;color:red;">Date d’expiration invalide, CVV invalide, crédit dépassé, solde insuffisant (etc.)</p>
+                    <p style="margin-top:1px;color:red;">Pour connaître la raison précise du refus, l’acheteur doit contacter sa banque.</p>';
             break;
 
         case "51":
-            return '<p style="margin-top:1px;">Provision insuffisante ou crédit dépassé</p>
-                    <p style="margin-top:1px;">Ce code est émis par la banque émettrice de la carte.</p>
-                    <p style="margin-top:1px;">Il peut être obtenu si l’acheteur ne dispose pas d’un solde suffisant pour réaliser son achat.</p>
-                    <p style="margin-top:1px;">Pour connaître la raison précise du refus, l’acheteur doit contacter sa banque.</p>';
+            return '<p style="margin-top:1px;color:red;">Provision insuffisante ou crédit dépassé</p>
+                    <p style="margin-top:1px;color:red;">Ce code est émis par la banque émettrice de la carte.</p>
+                    <p style="margin-top:1px;color:red;">Il peut être obtenu si l’acheteur ne dispose pas d’un solde suffisant pour réaliser son achat.</p>
+                    <p style="margin-top:1px;color:red;">Pour connaître la raison précise du refus, l’acheteur doit contacter sa banque.</p>';
             break;
 
         case "56":
-            return '<p style="margin-top:1px;">Carte absente du fichier - Ce code est émis par la banque émettrice de la carte.</p>
-                    <p style="margin-top:1px;">Le numéro de carte saisi est erroné ou le couple numéro de carte + date d\'expiration n\'existe pas..</p>';
+            return '<p style="margin-top:1px;color:red;">Carte absente du fichier - Ce code est émis par la banque émettrice de la carte.</p>
+                    <p style="margin-top:1px;color:red;">Le numéro de carte saisi est erroné ou le couple numéro de carte + date d\'expiration n\'existe pas..</p>';
             break;
         
         case "57":
-            return '<p style="margin-top:1px;">Transaction non permise à ce porteur - Ce code est émis par la banque émettrice de la carte.</p>
-                    <p style="margin-top:1px;">Il peut être obtenu en général dans les cas suivants :</p>
-                    <p style="margin-top:1px;">L’acheteur tente d’effectuer un paiement sur internet avec une carte de retrait.</p>
-                    <p style="margin-top:1px;">Le plafond d’autorisation de la carte est dépassé.</p>
-                    <p style="margin-top:1px;">Pour connaître la raison précise du refus, l’acheteur doit contacter sa banque.</p>';
+            return '<p style="margin-top:1px;color:red;">Transaction non permise à ce porteur - Ce code est émis par la banque émettrice de la carte.</p>
+                    <p style="margin-top:1px;color:red;">Il peut être obtenu en général dans les cas suivants :</p>
+                    <p style="margin-top:1px;color:red;">L’acheteur tente d’effectuer un paiement sur internet avec une carte de retrait.</p>
+                    <p style="margin-top:1px;color:red;">Le plafond d’autorisation de la carte est dépassé.</p>
+                    <p style="margin-top:1px;color:red;">Pour connaître la raison précise du refus, l’acheteur doit contacter sa banque.</p>';
             break;
         
         case "59":
-            return '<p style="margin-top:1px;">Suspicion de fraude - Ce code est émis par la banque émettrice de la carte.</p>
-                    <p style="margin-top:1px;">Il peut être obtenu en général suite à une saisie répétée de CVV ou de date d’expiration erronée.</p>
-                    <p style="margin-top:1px;">Pour connaître la raison précise du refus, l’acheteur doit contacter sa banque.</p>';
+            return '<p style="margin-top:1px;color:red;">Suspicion de fraude - Ce code est émis par la banque émettrice de la carte.</p>
+                    <p style="margin-top:1px;color:red;">Il peut être obtenu en général suite à une saisie répétée de CVV ou de date d’expiration erronée.</p>
+                    <p style="margin-top:1px;color:red;">Pour connaître la raison précise du refus, l’acheteur doit contacter sa banque.</p>';
             break;
         
         case "60":
@@ -349,23 +354,23 @@
             break;
              
         case "12":
-            return '<p style="margin-top:1px;">Transaction invalide</p>';
+            return '<p style="margin-top:1px;color:red;">Transaction invalide</p>';
             break;
              
         case "13":
-            return '<p style="margin-top:1px;">Montant invalide</p>';
+            return '<p style="margin-top:1px;color:red;">Montant invalide</p>';
             break;
              
         case "14":
-            return '<p style="margin-top:1px;">Numéro de porteur invalide</p>';
+            return '<p style="margin-top:1px;color:red;">Numéro de porteur invalide</p>';
             break;
              
         case "15":
-            return '<p style="margin-top:1px;">Emetteur de carte inconnu</p>';
+            return '<p style="margin-top:1px;color:red;">Emetteur de carte inconnu</p>';
             break;
              
         case "17":
-            return '<p style="margin-top:1px;">Annulation acheteur</p>';
+            return '<p style="margin-top:1px;color:red;">Annulation acheteur</p>';
             break;
              
         case "19":
@@ -373,7 +378,7 @@
             break;
              
         case "20":
-            return '<p style="margin-top:1px;">Réponse erronée (erreur dans le domaine serveur)</p>';
+            return '<p style="margin-top:1px;color:red;">Réponse erronée (erreur dans le domaine serveur)</p>';
             break;
              
         case "24":
@@ -405,87 +410,87 @@
             break;
              
         case "31":
-            return '<p style="margin-top:1px;">Identifiant de l’organisme acquéreur inconnu</p>';
+            return '<p style="margin-top:1px;color:red;">Identifiant de l’organisme acquéreur inconnu</p>';
             break;
              
         case "33":
-            return '<p style="margin-top:1px;">Date de validité de la carte dépassée</p>';
+            return '<p style="margin-top:1px;color:red;">Date de validité de la carte dépassée</p>';
             break;
              
         case "34":
-            return '<p style="margin-top:1px;">Suspicion de fraude</p>';
+            return '<p style="margin-top:1px;color:red;">Suspicion de fraude</p>';
             break;
              
         case "38":
-            return '<p style="margin-top:1px;">Date de validité de la carte dépassée</p>';
+            return '<p style="margin-top:1px;color:red;">Date de validité de la carte dépassée</p>';
             break;
              
         case "41":
-            return '<p style="margin-top:1px;">Carte perdue</p>';
+            return '<p style="margin-top:1px;color:red;">Carte perdue</p>';
             break;
              
         case "43":
-            return '<p style="margin-top:1px;">Carte volée</p>';
+            return '<p style="margin-top:1px;color:red;">Carte volée</p>';
             break;
              
         case "54":
-            return '<p style="margin-top:1px;">Date de validité de la carte dépassée</p>';
+            return '<p style="margin-top:1px;color:red;">Date de validité de la carte dépassée</p>';
             break;
              
         case "55":
-            return '<p style="margin-top:1px;">Code confidentiel erroné</p>';
+            return '<p style="margin-top:1px;color:red;">Code confidentiel erroné</p>';
             break;
              
         case "58":
-            return '<p style="margin-top:1px;">Transaction non permise à ce porteur</p>';
+            return '<p style="margin-top:1px;color:red;">Transaction non permise à ce porteur</p>';
             break;
              
         case "61":
-            return '<p style="margin-top:1px;">Montant de retrait hors limite</p>';
+            return '<p style="margin-top:1px;color:red;">Montant de retrait hors limite</p>';
             break;
              
         case "63":
-            return '<p style="margin-top:1px;">Règles de sécurité non respectées</p>';
+            return '<p style="margin-top:1px;color:red;">Règles de sécurité non respectées</p>';
             break;
              
         case "68":
-            return '<p style="margin-top:1px;">Réponse non parvenue ou reçue trop tard</p>';
+            return '<p style="margin-top:1px;color:red;">Réponse non parvenue ou reçue trop tard</p>';
             break;
              
         case "75":
-            return '<p style="margin-top:1px;">Nombre d’essais code confidentiel dépassé</p>';
+            return '<p style="margin-top:1px;color:red;">Nombre d’essais code confidentiel dépassé</p>';
             break;
              
         case "76":
-            return '<p style="margin-top:1px;">Porteur déjà en opposition, ancien enregistrement conservé</p>';
+            return '<p style="margin-top:1px;color:red;">Porteur déjà en opposition, ancien enregistrement conservé</p>';
             break;
              
         case "90":
-            return '<p style="margin-top:1px;">Arrêt momentané du système</p>';
+            return '<p style="margin-top:1px;color:red;">Arrêt momentané du système</p>';
             break;
              
         case "91":
-            return '<p style="margin-top:1px;">Émetteur de cartes inaccessible</p>';
+            return '<p style="margin-top:1px;color:red;">Émetteur de cartes inaccessible</p>';
             break;
              
         case "94":
-            return '<p style="margin-top:1px;">Transaction dupliquée</p>';
+            return '<p style="margin-top:1px;color:red;">Transaction dupliquée</p>';
             break;
              
         case "96":
-            return '<p style="margin-top:1px;">Mauvais fonctionnement du système</p>';
+            return '<p style="margin-top:1px;color:red;">Mauvais fonctionnement du système</p>';
             break;
              
         case "97":
-            return '<p style="margin-top:1px;">Échéance de la temporisation de surveillance globale</p>';
+            return '<p style="margin-top:1px;color:red;">Échéance de la temporisation de surveillance globale</p>';
             break;
              
         case "98":
-            return '<p style="margin-top:1px;">Serveur indisponible routage réseau demandé à nouveau</p>';
+            return '<p style="margin-top:1px;color:red;">Serveur indisponible routage réseau demandé à nouveau</p>';
             break;
         
         case "99":
-            return '<p style="margin-top:1px;">Incident domaine initiateur</p>';
+            return '<p style="margin-top:1px;color:red;">Incident domaine initiateur</p>';
             break;
 
         case "ERRORTYPE":
