@@ -1,5 +1,5 @@
 <?php
-
+    
     // $test = "----- Résultat brute -----<br />".implode($_POST,'<br />')."<br>----- End Résultat brute -----<br />";
     
     /* FOR DEBUG MODE (display:none; on mail body) */
@@ -112,7 +112,11 @@
             </div>';
     /* END DEBUG MODE (display:none; on mail body) */
 
-    //Customer informations
+    /* --------------------
+             $_POST 
+        ------------------ */
+
+    /* Customer informations */
         //Name and Lastname
     $vadsCustFirstName = !empty($_POST['vads_cust_first_name']) ? $_POST['vads_cust_first_name'] : 'ERRORFIRSTNAME';
     $vadsCustLastName = !empty($_POST['vads_cust_last_name']) ? $_POST['vads_cust_last_name'] : 'ERRORLASTNAME';
@@ -125,45 +129,50 @@
     $vadsCardNumber = !empty($_POST['vads_card_number']) ? $_POST['vads_card_number'] : 'ERRORCARDNUMBER';
     $vadsCustCardInfos = '<h3 style="margin-bottom: 3px;margin-top: 1px;">Carte : </h3><p style="margin-top:1px">'.$vadsCardBrand.' n° '.$vadsCardNumber.' expire le '.$vads_expiry_month.'/'.$vads_expiry_year.'</p>';
 
-    //Payment date
+    /* Payment date */
     $vadsTransDate = verifVadsTransDate(!empty($_POST['vads_trans_date']) ? $_POST['vads_trans_date'] : 'ERRORDATE');
     $subjectTransdate = $vadsTransDate; //Only date for mail subject
     $vadsTransDate = '<h3 style="margin-bottom: 3px;margin-top: 1px;">Transaction du '.$vadsTransDate;
 
-    //Total payment amount
+    /* Total payment amount */
     $vadsAmount = verifVadsAmount(!empty($_POST['vads_amount']) ? $_POST['vads_amount'] : 'ERRORAMOUNT');
     $vadsAmount = 'pour un total de '.$vadsAmount.' €';
 
-    //Transaction numbers
+    /* Transaction numbers */
     $vadsTransId = verifVadsTransId(!empty($_POST['vads_trans_id']) ? $_POST['vads_trans_id'] : 'ERRORTRANSID');
     $vadsTransId = 'réservation N° '.$vadsTransId;
 
-    //Payment date + amount text
+    /* Payment date + amount text */
     $vadsDateAndAmountTxt = $vadsTransDate.' '.$vadsAmount.' '.$vadsTransId.'</h3>';
 
-    //ID or Number of Transaction
+    /* ID or Number of Transaction */
     $vadsOrderId = !empty($_POST['vads_order_id']) ? $_POST['vads_order_id'] : '<p style="margin-top:1px;">Erreur vads_order_id</p>';
     $vadsOrderId = '<h3 style="margin-bottom: 3px;margin-top: 1px;">Identifiant de la réservation</h3><p style="margin-top:1px">'.$vadsOrderId.'</p>';
 
-    //status of payment
+    /* status of payment */
     $vadsTransStatus = verifVadsStatus(!empty($_POST['vads_trans_status']) ? $_POST['vads_trans_status'] : 'ERRORSTATUS');
     $vadsTransStatus = '<h3 style="margin-bottom: 3px;margin-top: 1px;">Résultat du paiement transmis</h3>'.$vadsTransStatus;
 
-    //Operation type
+    /* Operation type */
     $vadsOperationType = verifVadsOperationType(!empty($_POST['vads_operation_type']) ? $_POST['vads_operation_type'] : 'ERRORTYPE');
     $vadsOperationType = '<h3 style="margin-bottom: 3px;margin-top: 1px;">Type d\'opération</h3>'.$vadsOperationType;
 
-    //Request authorization result
+    /* Request authorization result */
     $vadsAuthResult = verifVadsAuthResult(!empty($_POST['vads_auth_result']) ? $_POST['vads_auth_result'] : 'ERRORAUTH');
     $vadsAuthResult = '<h3 style="margin-bottom: 3px;margin-top: 1px;">Résultat d\'authorisation</h3>'.$vadsAuthResult;
 
 
-    /* Message content */
+    /* -- Mail content -- */
     $message =  $vadsDateAndAmountTxt.'<br />'.$vadsCustName.'<br />'.$vadsCustPhone.'<br />'.$vadsCustCardInfos.'<br />'.$vadsAuthResult.'<br />'.$vadsOperationType.'<br />'.$vadsOrderId.'<br />'.$vadsTransStatus.'<br />'.$test;
 
-    /*
-     ----- Mail send -----
-    */
+    /* --------------------
+             /$_POST 
+        ------------------ */
+
+
+    /* -------------------
+           Mail send  
+       ------------------- */
 
      $sujet = 'Paiement du '.$subjectTransdate.' '.$vadsTransId.' - '.$vadsCustFirstName.' '.$vadsCustLastName;
      $destinataire = 'samuel.etheve@regie.re';
@@ -178,14 +187,15 @@
              print_r(error_get_last());
      }
 
-    /*
-     ----- End Mail send -----
-    */
+    /* -------------------
+           /Mail send  
+       ------------------- */
 
 
-                        /* ---------------------
-                             Logic function 
-                           --------------------- */
+
+    /* --------------------
+           Logic function 
+        ------------------ */
 
      //Function for verification status of payment - String $data
      function verifVadsStatus($data) {
@@ -526,6 +536,8 @@
 
         }
      }
-
+    /* --------------------
+           /Logic function 
+        ------------------ */
 
 ?>

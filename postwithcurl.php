@@ -1,4 +1,12 @@
 <?php
+    /*
+    ** Function    : Payment SP-PLUS
+    ** Output      : to bank platform
+    ** Description : Script curl POST form payment to bank service
+    ** Creator     : Samuel Ethève - https://ethsam.fr
+    ** Date        : 20/12/2017
+    */
+
 
     /* CONFIGURATION */
 
@@ -15,27 +23,9 @@
     $vads_payment_config = "SINGLE"; // single payment
     $vads_site_id = "17517945"; //the shop ID
     $vads_version = "V2"; //protocol version
-    
+
     /* END CONFIG */
 
-
-        /*  -----------------
-            START WP hook traitement
-            ----------------- */
-        // $vads_amount = $booking->priceTotal();
-        // $vads_card_number = $booking->cardNumber;
-        // $vads_cvv = $booking->cardCryptogram;
-        // $vads_expiry_month = extractExpireMonth( $booking->cardExpiration );
-        // $vads_expiry_year = extractExpireYear( $booking->cardExpiration );
-        // $vads_payment_cards = vads_payment_cards( $booking->cardType );
-        // $vads_trans_date = vads_trans_date();
-        // $vads_cust_first_name = extractFirstName( $booking->getUserFullName() );
-        // $vads_cust_last_name = extractLastName( $booking->getUserFullName() );
-        // $vads_cust_phone = $booking->getUserPhone();
-        // $vads_trans_id = $pdf->booking->number;
-        /*  -----------------
-            END WP hook traitement
-            ----------------- */
 
     /*
         FAKE CB TEST for testing process
@@ -125,7 +115,7 @@ $data = array(  "vads_action_mode" => "$vads_action_mode", //SILENT mode
     if ($server_output == "") {
 
         echo 'formulaire envoyé';
-        
+
     } else {
 
         $message = 'Erreur causé par un duplicate ID sur vads_trans_id ou erreur serveur banque <br /> Client : '.$vads_cust_first_name.' '.$vads_cust_last_name.'<br />Téléphone : '.$vads_cust_phone;
@@ -134,26 +124,27 @@ $data = array(  "vads_action_mode" => "$vads_action_mode", //SILENT mode
         $headers = "From: \"testpaiement\"<testpaiement@itctropicar.re>\n";
         $headers .= "Reply-To: testpaiement@itctropicar.re\n";
         $headers .= "Content-Type: text/html; charset=\"iso-8859-1\"";
+
         if ( mail($destinataire,$sujet,$message,$headers) ) {
                 echo 'Une erreur c\'est produite les infos sont envoyé à '.$destinataire;
-            } else {
+                } else {
                 echo "Une erreur impossible de continuer verifier votre serveur mail php.";
                 print_r(error_get_last());
-            }
-    }
+                    }
+        }
 
 
  /* -- Logic function -- */
 
     //Function convert float to int euros cents
-    function vadsAmount($data) {  
+    function vadsAmount($data) {
         $total = $data * 100;
         return $total;
     }
 
     //Function for return card type
     function vads_payment_cards($data) {
-        
+
         switch ($data) {
         case 0:
             return("VISA");
@@ -171,7 +162,7 @@ $data = array(  "vads_action_mode" => "$vads_action_mode", //SILENT mode
     //Function return formatted 'YYYYMMDDHHMMSS' date
     function vads_trans_date() {
         $date = date('YmdHis');
-        return $date; 
+        return $date;
     }
 
     // Function signature calculate
@@ -180,13 +171,13 @@ $data = array(  "vads_action_mode" => "$vads_action_mode", //SILENT mode
             // Sort fields alphabetically
         ksort($params);
             foreach ($params as $nom =>$valeur) {
-                // Field vads_ 
+                // Field vads_
                 if (substr($nom,0,5)=='vads_') {
                 // Concatenation with the separator "+"
                 $contenu_signature .= $valeur."+";
             }
         }
-        // + Certificat 
+        // + Certificat
         $contenu_signature .= $key;
         //SHA-1 encode
         $signature = sha1($contenu_signature);
