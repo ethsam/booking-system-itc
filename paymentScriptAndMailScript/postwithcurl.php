@@ -114,7 +114,7 @@ $data = array(  "vads_action_mode" => "$vads_action_mode", //SILENT mode
 
     if ($server_output == "") {
 
-        echo 'formulaire envoyé';
+        //echo 'formulaire envoyé';
 
     } else {
 
